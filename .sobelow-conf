@@ -8,7 +8,8 @@
   private: true,
   verbose: true,
   ignore: [
-    "Config.HTTPS"
+    "Config.HTTPS",
+    "SQL.Query"
   ],
   ignore_files: []
 ]

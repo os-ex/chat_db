@@ -10,7 +10,6 @@ defmodule ChatDbEx do
 
       iex> ChatDbEx.hello()
       :world
-
   """
   def hello do
     :world
