@@ -41,7 +41,7 @@ defmodule ChatDbEx.ConnServer do
       # Sqlitex.Server.set_update_hook(IMessageChatDB, self())
       # Sqlitex.Server.set_update_hook(IMessageChatDB, db)
 
-      Process.send_after(self(), :get_updates, @update_interval)
+      Process.send_after(self(), :attach_update_hook, @update_interval)
 
       {:ok, %{state | db: db}}
     end
@@ -49,8 +49,8 @@ defmodule ChatDbEx.ConnServer do
     # {:ok, state}
   end
 
-  def handle_info(:get_updates, db) do
-    # get_updates(db)
+  def handle_info(:attach_update_hook, db) do
+    # attach_update_hook(db)
     # db = IMessageChatDB
     # Sqlitex.Server.set_update_hook(db, self())
     # Sqlitex.Server.set_update_hook(IMessageChatDB, self())
@@ -60,12 +60,15 @@ defmodule ChatDbEx.ConnServer do
     # IO.inspect(db: db)
     # IO.inspect(db: db)
     # IO.inspect(db: db)
-    IO.inspect("get_updates")
+    IO.inspect("attached_update_hook")
+    IO.inspect("attached_update_hook")
+    IO.inspect("attached_update_hook")
+    IO.inspect("attached_update_hook")
     {:noreply, :calendar.local_time()}
   end
 
   # === INBOX ===
-  def get_updates() do
+  def attach_update_hook() do
     # db = IMessageChatDB
     # Sqlitex.Server.set_update_hook(db, self())
     # Sqlitex.Server.set_update_hook(IMessageChatDB, self())
@@ -83,7 +86,13 @@ defmodule ChatDbEx.ConnServer do
   #   {:reply, {action, table, rowid}, state}
   # end
 
-  def handle_info({action, table, rowid}, _something) do
+  def handle_info({action, table, rowid}, last_attached_at) do
+    IO.inspect(:update)
+    IO.inspect(:update)
+    IO.inspect(:update)
+    IO.inspect(:update)
+    IO.inspect(:update)
+    IO.inspect(last_attached_at)
     IO.inspect({action, table, rowid})
     # {:reply, {action, table, rowid}, state}
     {:noreply, nil}
