@@ -6,14 +6,15 @@ defmodule ChatDbEx.Config do
   # @priv_dir :code.priv_dir(:chat_db_ex)
 
   # defstruct chat_db_path: Path.join(@priv_dir, 'db/Messages/chat.db'),
-  # defstruct chat_db_path: 'priv/db/Messages/chat.db',
-
-  defstruct chat_db_path: '/home/sitch/sites/imessagex/db/Messages/chat.db',
+  # defstruct chat_db_path: '/home/sitch/sites/imessagex/db/Messages/chat.db',
+  defstruct chat_db_path: 'priv/db/Messages/chat.db',
             exported_vcards_filename: "priv/contacts.vcf",
             exported_jcards_filename: "priv/contacts-ical-jcards.json",
             contacts_json: "",
             contact_cache_dir: "",
+            chat_db_module: ChatDbEx.IMessageChatDB,
             photo_cache_dir: "",
+            chat_db_hook_interval_ms: 1000,
             chat_db_opts: []
 
   @type t() :: %__MODULE__{
@@ -22,7 +23,9 @@ defmodule ChatDbEx.Config do
           exported_jcards_filename: String.t(),
           contacts_json: String.t(),
           contact_cache_dir: String.t(),
+          chat_db_module: module(),
           photo_cache_dir: String.t(),
+          chat_db_hook_interval_ms: pos_integer(),
           chat_db_opts: Keyword.t()
         }
 

@@ -26,6 +26,7 @@ defmodule ChatDbEx.MixProject do
     [
       {:sqlitex, "~> 1.7"},
       {:jason, "~> 1.0"},
+      {:dark_ecto, "~> 1.0"},
       {:dark_dev, ">= 1.0.3", only: [:dev, :test], runtime: false}
     ]
   end

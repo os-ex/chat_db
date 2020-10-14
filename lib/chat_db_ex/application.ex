@@ -9,6 +9,7 @@ defmodule ChatDbEx.Application do
   alias ChatDbEx.Config
 
   @impl true
+  @spec start(any(), any()) :: {:ok, pid()} | {:error, any()}
   def start(_type, _args) do
     config = Config.read()
 
@@ -24,6 +25,7 @@ defmodule ChatDbEx.Application do
     Supervisor.start_link(children, opts)
   end
 
+  @spec chat_db_spec(Config.t()) :: [Supervisor.Spec.t()] | no_return()
   defp chat_db_spec(%Config{} = config) do
     unless Config.valid_chat_db?(config) do
       raise RuntimeError, """
@@ -45,12 +47,8 @@ defmodule ChatDbEx.Application do
       #   start: {Sqlitex.Server, :start_link, [chat_db_path]}
       # }
 
-      worker(Sqlitex.Server, [
-        config.chat_db_path,
-        [name: IMessageChatDB]
-      ]),
-      # {ChatDbEx.ConnServer, [config: config]}
-      {ChatDbEx.ChatServer, [config: config]}
+      worker(Sqlitex.Server, [to_charlist(config.chat_db_path), [name: ChatDbEx.IMessageChatDB]]),
+      {ChatDbEx.UpdateHookServer, [config: config]}
     ]
   end
 end
