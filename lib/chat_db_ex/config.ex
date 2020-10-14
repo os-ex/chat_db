@@ -31,7 +31,11 @@ defmodule ChatDbEx.Config do
   """
   @spec read :: t()
   def read do
-    struct(__MODULE__, read_env())
+    __MODULE__ |> struct(read_env()) |> format()
+  end
+
+  defp format(%__MODULE__{} = struct) do
+    %{struct | chat_db_path: to_charlist(struct.chat_db_path)}
   end
 
   @spec read_env :: %{required(:atom) => any()}
@@ -39,5 +43,9 @@ defmodule ChatDbEx.Config do
     :chat_db_path_ex
     |> Application.get_all_env()
     |> Enum.into(%{})
+  end
+
+  def valid_chat_db?(%__MODULE__{chat_db_path: chat_db_path}) do
+    File.exists?(chat_db_path)
   end
 end

@@ -24,8 +24,8 @@ defmodule ChatDbEx.Application do
     Supervisor.start_link(children, opts)
   end
 
-  defp chat_db_spec(%Config{chat_db_path: chat_db_path} = config) do
-    unless File.exists?(chat_db_path) do
+  defp chat_db_spec(%Config{} = config) do
+    unless Config.valid_chat_db?(config) do
       raise RuntimeError, """
       `:chat_db_path` does not contain a valid SQLite file.
       """
@@ -42,14 +42,15 @@ defmodule ChatDbEx.Application do
       #   id: Sqlitex.Server,
       #   name: ChatDbEx.DB,
       #   name: IMessageChatDB,
-      #   start: {Sqlitex.Server, :start_link, [to_charlist(chat_db_path)]}
+      #   start: {Sqlitex.Server, :start_link, [chat_db_path]}
       # }
 
-      {ChatDbEx.ConnServer, [config: config]},
       worker(Sqlitex.Server, [
-        to_charlist(chat_db_path),
+        config.chat_db_path,
         [name: IMessageChatDB]
-      ])
+      ]),
+      # {ChatDbEx.ConnServer, [config: config]}
+      {ChatDbEx.ChatServer, [config: config]}
     ]
   end
 end
