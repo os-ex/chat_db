@@ -16,7 +16,10 @@ defmodule ChatDbEx.MixProject do
   end
 
   def application do
-    [extra_applications: [:logger]]
+    [
+      extra_applications: [:logger],
+      mod: {ChatDbEx.Application, []}
+    ]
   end
 
   defp deps do
