@@ -23,7 +23,16 @@ erl_crash.dump
 applescripts_ex-*.tar
 
 
+# If NPM crashes, it generates a log, let's ignore it too.
+npm-debug.log
+
+/node_modules/
+
+.vscode/
+.elixir_ls/
+
 # Temporary files for e.g. tests
 /tmp
 
 /priv/db/Messages/
+

@@ -1,0 +1,16 @@
+{
+  "name": "chat_db",
+  "version": "1.0.0",
+  "description": "Utils for working with iMessage",
+  "main": "bin/vcards-to-jcards.js",
+  "repository": "https://github.com/os-ex/chat_db_ex",
+  "author": "Michael Sitchenko <michael.sitchenko@gmail.com>",
+  "license": "Apache",
+  "private": false,
+  "dependencies": {
+    "boxen": "^4.2.0",
+    "chalk": "^4.1.0",
+    "ical.js": "^1.4.0",
+    "yargs": "^16.0.3"
+  }
+}
