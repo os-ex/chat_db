@@ -1,13 +1,38 @@
-defmodule ChatDbEx.Messaging do
+defmodule ChatDB.Repo.Messaging do
   @moduledoc """
   Context for the SQLite repo calls.
   """
 
-  alias ChatDbEx.SQLiteQueries
+  alias ChatDB.Repo.SQLiteQueries
 
   def last_message do
     sql = SQLiteQueries.sql(:last_message)
     count(sql)
+  end
+
+  def max_chat_id do
+    sql = SQLiteQueries.sql(:max_chat_id)
+
+    with {:ok, [[max_chat_id: max_chat_id]]} when is_integer(max_chat_id) <- query(sql) do
+      {:ok, max_chat_id}
+    end
+  end
+
+  def max_message_id do
+    sql = SQLiteQueries.sql(:max_message_id)
+
+    with {:ok, [[max_message_id: max_message_id]]} when is_integer(max_message_id) <- query(sql) do
+      {:ok, max_message_id}
+    end
+  end
+
+  def max_attachment_id do
+    sql = SQLiteQueries.sql(:max_attachment_id)
+
+    with {:ok, [[max_attachment_id: max_attachment_id]]} when is_integer(max_attachment_id) <-
+           query(sql) do
+      {:ok, max_attachment_id}
+    end
   end
 
   def last_message_at(%{rowid: rowid}) do
@@ -54,12 +79,12 @@ defmodule ChatDbEx.Messaging do
   end
 
   def query(sql) do
-    Sqlitex.Server.query(ChatDbEx.IMessageChatDB, sql)
+    Sqlitex.Server.query(ChatDB.IMessageChatDB, sql)
   end
 
   def count(sql) do
     with {:ok, [[count: count]]} when is_integer(count) <-
-           Sqlitex.Server.query(ChatDbEx.IMessageChatDB, sql) do
+           Sqlitex.Server.query(ChatDB.IMessageChatDB, sql) do
       {:ok, count}
     end
   end

@@ -1,4 +1,4 @@
-defmodule ChatDbEx.Application do
+defmodule ChatDB.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
@@ -6,7 +6,7 @@ defmodule ChatDbEx.Application do
   use Application
   import Supervisor.Spec
 
-  alias ChatDbEx.Config
+  alias ChatDB.Config
 
   @impl true
   @spec start(any(), any()) :: {:ok, pid()} | {:error, any()}
@@ -15,13 +15,13 @@ defmodule ChatDbEx.Application do
 
     children =
       [
-        # Starts a worker by calling: ChatDbEx.Worker.start_link(arg)
-        # {ChatDbEx.Worker, arg}
+        # Starts a worker by calling: ChatDB.Worker.start_link(arg)
+        # {ChatDB.Worker, arg}
       ] ++ chat_db_spec(config)
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: ChatDbEx.Supervisor]
+    opts = [strategy: :one_for_one, name: ChatDB.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
@@ -48,20 +48,20 @@ defmodule ChatDbEx.Application do
 
     [
       # %{
-      #   id: ChatDbEx.ConnServer,
-      #   name: ChatDbEx.ConnServer,
-      #   # start: {ChatDbEx.ConnServer, :start_link, [[sqlite: ChatDbEx.DB, config: config]]}
-      #   start: {ChatDbEx.ConnServer, :start_link, [[config: config]]}
+      #   id: ChatDB.ConnServer,
+      #   name: ChatDB.ConnServer,
+      #   # start: {ChatDB.ConnServer, :start_link, [[sqlite: ChatDB.DB, config: config]]}
+      #   start: {ChatDB.ConnServer, :start_link, [[config: config]]}
       # },
       # %{
       #   id: Sqlitex.Server,
-      #   name: ChatDbEx.DB,
+      #   name: ChatDB.DB,
       #   name: IMessageChatDB,
       #   start: {Sqlitex.Server, :start_link, [chat_db_path]}
       # }
 
-      worker(Sqlitex.Server, [to_charlist(config.chat_db_path), [name: ChatDbEx.IMessageChatDB]]),
-      {ChatDbEx.UpdateHookServer, [config: config]}
+      worker(Sqlitex.Server, [to_charlist(config.chat_db_path), [name: ChatDB.IMessageChatDB]]),
+      {ChatDB.Server.UpdateHooks, [config: config]}
     ]
   end
 end

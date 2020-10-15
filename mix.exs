@@ -1,9 +1,9 @@
-defmodule ChatDbEx.MixProject do
+defmodule ChatDB.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :chat_db_ex,
+      app: :chat_db,
       version: "1.0.0",
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
@@ -18,7 +18,7 @@ defmodule ChatDbEx.MixProject do
   def application do
     [
       extra_applications: [:logger],
-      mod: {ChatDbEx.Application, []}
+      mod: {ChatDB.Application, []}
     ]
   end
 

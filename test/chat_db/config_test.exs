@@ -1,9 +1,9 @@
-defmodule ChatDbEx.ConfigTest do
+defmodule ChatDB.ConfigTest do
   @moduledoc false
 
   use ExUnit.Case, async: true
 
-  alias ChatDbEx.Config
+  alias ChatDB.Config
 
   describe ".read/0" do
     test "it returns valid defaults" do

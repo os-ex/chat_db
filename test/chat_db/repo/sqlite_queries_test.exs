@@ -1,9 +1,9 @@
-defmodule ChatDbEx.SQLiteQueriesTest do
+defmodule ChatDB.Repo.SQLiteQueriesTest do
   @moduledoc false
 
   use ExUnit.Case, async: true
 
-  alias ChatDbEx.SQLiteQueries
+  alias ChatDB.Repo.SQLiteQueries
   alias DarkEcto.SQLFormatter
 
   describe ".sql/2 (:last_message_at)" do

@@ -1,4 +1,4 @@
-defmodule ChatDbEx.SQLiteQueries do
+defmodule ChatDB.Repo.SQLiteQueries do
   @moduledoc """
   iMessage chatdb queries.
   """
@@ -48,6 +48,15 @@ defmodule ChatDbEx.SQLiteQueries do
       MAX(message.ROWID) AS max_message_id
     FROM
       message
+    """
+  end
+
+  def sql(:max_attachment_id, _) do
+    """
+    SELECT
+      MAX(attachment.ROWID) AS max_attachment_id
+    FROM
+      attachment
     """
   end
 

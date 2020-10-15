@@ -1,4 +1,4 @@
-defmodule ChatDbEx.Config do
+defmodule ChatDB.Config do
   @moduledoc """
   Application config.
   """
@@ -13,7 +13,7 @@ defmodule ChatDbEx.Config do
             exported_jcards_filename: "priv/contacts-ical-jcards.json",
             contacts_json: "",
             contact_cache_dir: "",
-            chat_db_module: ChatDbEx.IMessageChatDB,
+            chat_db_module: ChatDB.IMessageChatDB,
             photo_cache_dir: "",
             register_hook_delay_ms: 1000,
             chat_db_opts: [],

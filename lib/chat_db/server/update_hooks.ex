@@ -1,4 +1,4 @@
-defmodule ChatDbEx.UpdateHookServer do
+defmodule ChatDB.Server.UpdateHooks do
   @moduledoc """
   GenServer for managing the sqlite `chat.db` connection.
   """
@@ -7,8 +7,8 @@ defmodule ChatDbEx.UpdateHookServer do
 
   alias Sqlitex.Server
 
-  alias ChatDbEx.Config
-  # alias ChatDbEx.Listener
+  alias ChatDB.Config
+  # alias ChatDB.Listener
 
   @type state() :: %{config: Config.t()}
 
@@ -47,9 +47,10 @@ defmodule ChatDbEx.UpdateHookServer do
     {:noreply, dispatch_update(state, update)}
   end
 
-  def handle_call(:schedule_hooks, _from, state) do
-    Process.send_after(self(), :schedule_hooks, state.config.register_hook_delay_ms)
-  end
+  # @impl true
+  # def handle_call(:schedule_hooks, _from, state) do
+  #   Process.send_after(self(), :schedule_hooks, state.config.register_hook_delay_ms)
+  # end
 
   @spec schedule_hooks(state()) :: state()
   defp schedule_hooks(%{config: %Config{} = config} = state) do

@@ -1,11 +1,11 @@
-defmodule ChatDbEx.Listener do
+defmodule ChatDB.Listener do
   @moduledoc """
   SQLite connector for the iMessage chatdb.
   """
 
   # alias Phoenix.PubSub
 
-  alias ChatDbEx
+  alias ChatDB
 
   require Logger
 
