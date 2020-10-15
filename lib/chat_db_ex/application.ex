@@ -29,7 +29,20 @@ defmodule ChatDbEx.Application do
   defp chat_db_spec(%Config{} = config) do
     unless Config.valid_chat_db?(config) do
       raise RuntimeError, """
-      `:chat_db_path` does not contain a valid SQLite file.
+      #{IO.ANSI.reset()}
+
+      #{IO.ANSI.green()}
+      #{inspect(__MODULE__)}
+          #{IO.ANSI.blue()}
+          Missing `chat.db` SQLite database file
+          #{IO.ANSI.reset()}#{IO.ANSI.red()}
+          :chat_db_path#{IO.ANSI.reset()} does not contain a valid SQLite file.
+
+      #{IO.ANSI.white()}
+      Config:
+
+      #{IO.ANSI.reset()}
+      #{inspect(config, pretty: true)}
       """
     end
 

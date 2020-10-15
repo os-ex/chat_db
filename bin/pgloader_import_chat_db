@@ -1,0 +1,8 @@
+LOAD database
+    FROM sqlite:///home/sitch/sites/imessagex/db/Messages/chat.db
+    INTO postgresql:///imessagex_dev
+
+    WITH include drop, create tables, create indexes, reset sequences
+
+    SET work_mem to '16MB', maintenance_work_mem to '512 MB';
+
