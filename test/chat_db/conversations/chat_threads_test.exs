@@ -3,7 +3,7 @@ defmodule ChatDB.Conversations.ChatThreadsTest do
 
   use ExUnit.Case, async: true
 
-  import ChatDB.Factory
+  import Test.Support.Factory
 
   alias ChatDB.Conversations.ChatThreads
 

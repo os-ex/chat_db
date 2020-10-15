@@ -6,6 +6,7 @@ defmodule ChatDB.MixProject do
       app: :chat_db,
       version: "1.0.0",
       elixir: "~> 1.11",
+      elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       dialyzer: [
         ignore_warnings: ".dialyzer_ignore.exs",
@@ -14,6 +15,9 @@ defmodule ChatDB.MixProject do
       deps: deps()
     ]
   end
+
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
 
   def application do
     [
