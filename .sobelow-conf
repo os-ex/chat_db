@@ -9,7 +9,9 @@
   verbose: true,
   ignore: [
     "Config.HTTPS",
-    "SQL.Query"
+    "SQL.Query",
+    "Traversal.FileModule",
+    "DOS.StringToAtom"
   ],
   ignore_files: []
 ]

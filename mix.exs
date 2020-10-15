@@ -24,9 +24,14 @@ defmodule ChatDB.MixProject do
 
   defp deps do
     [
+      {:prop_schema, "~> 1.0"},
       {:sqlitex, "~> 1.7"},
       {:jason, "~> 1.0"},
       {:dark_ecto, "~> 1.0"},
+
+      # Development
+      {:faker, "~> 0.13", only: [:dev, :test]},
+      {:ex_machina, "~> 2.4", only: [:dev, :test]},
       {:dark_dev, ">= 1.0.3", only: [:dev, :test], runtime: false}
     ]
   end
