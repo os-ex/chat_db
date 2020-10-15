@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Utils for working with iMessage",
   "main": "bin/vcards-to-jcards.js",
-  "repository": "https://github.com/os-ex/chat_db_ex",
+  "repository": "https://github.com/os-ex/chat_db",
   "author": "Michael Sitchenko <michael.sitchenko@gmail.com>",
   "license": "Apache",
   "private": false,

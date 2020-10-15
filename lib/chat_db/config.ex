@@ -3,7 +3,7 @@ defmodule ChatDB.Config do
   Application config.
   """
 
-  # @priv_dir :code.priv_dir(:chat_db_ex)
+  # @priv_dir :code.priv_dir(:chat_db)
 
   # defstruct chat_db_path: Path.join(@priv_dir, 'db/Messages/chat.db'),
   # defstruct chat_db_path: '/home/sitch/sites/imessagex/db/Messages/chat.db',
