@@ -1,4 +1,4 @@
-defmodule ChatDB.Listener do
+defmodule ChatDB.Server.Listener do
   @moduledoc """
   SQLite connector for the iMessage chatdb.
   """

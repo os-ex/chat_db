@@ -1,4 +1,4 @@
-defmodule Test.Support.Randoms do
+defmodule Support.Randoms do
   @moduledoc """
   Generates randomized fields.
   """

@@ -8,7 +8,7 @@ defmodule ChatDB.Server.UpdateHooks do
   alias Sqlitex.Server
 
   alias ChatDB.Config
-  # alias ChatDB.Listener
+  # alias ChatDB.Server.Listener
 
   @type state() :: %{config: Config.t()}
 

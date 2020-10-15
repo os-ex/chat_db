@@ -2,8 +2,7 @@ defmodule ChatDB.Conversations.ChatThreadsTest do
   @moduledoc false
 
   use ExUnit.Case, async: true
-
-  import Test.Support.Factory
+  import Support.Factory
 
   alias ChatDB.Conversations.ChatThreads
 

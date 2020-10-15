@@ -188,7 +188,8 @@ import CredoNaming.Check.Consistency.ModuleFilename, only: [valid_filename?: 3]
          [
            excluded_paths: [],
            acronyms: [
-             {"SQLite", "sqlite"}
+             {"SQLite", "sqlite"},
+             {"ICal", "ical"}
            ]
          ]}
       ]

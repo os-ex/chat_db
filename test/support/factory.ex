@@ -1,9 +1,9 @@
-defmodule Test.Support.Factory do
+defmodule Support.Factory do
   @moduledoc false
 
   use ExMachina.Ecto
 
-  alias Test.Support.Randoms
+  alias Support.Randoms
 
   alias ChatDB.Schemas.Attachment
   alias ChatDB.Schemas.Chat
