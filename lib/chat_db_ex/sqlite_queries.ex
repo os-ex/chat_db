@@ -33,6 +33,24 @@ defmodule ChatDbEx.SQLiteQueries do
 
   def sql(query, opts \\ %{})
 
+  def sql(:max_chat_id, _) do
+    """
+    SELECT
+      MAX(chat.ROWID) AS max_chat_id
+    FROM
+      chat
+    """
+  end
+
+  def sql(:max_message_id, _) do
+    """
+    SELECT
+      MAX(message.ROWID) AS max_message_id
+    FROM
+      message
+    """
+  end
+
   def sql(:last_message_at, %{rowid: rowid}) do
     # {unix_datetime("message.date", as: "utc_date")}
     """

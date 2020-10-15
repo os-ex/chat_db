@@ -25,25 +25,7 @@ defmodule ChatDbEx.MessagingTest do
   describe ".last_message/0" do
     test "it returns valid result" do
       assert {:ok, [message]} = Messaging.last_message()
-
-      assert message == [
-               handle_id: 834,
-               handle_identifier: "+15856223649",
-               handle_uncanonicalized_id: nil,
-               id: 218_407,
-               guid: "7C8D54B8-1486-4976-A093-FDD256D28177",
-               text: "xoxox",
-               subject: nil,
-               cache_roomnames: nil,
-               is_read: 0,
-               is_sent: 1,
-               is_from_me: 1,
-               has_attachments: 0,
-               utc_datetime: "2020-09-29 08:48:48",
-               utc_datetime_read: "2000-12-31 19:00:00",
-               utc_datetime_played: "2000-12-31 19:00:00",
-               utc_datetime_delivered: "2020-09-29 08:49:09"
-             ]
+      assert_valid_message(message)
     end
   end
 
@@ -61,14 +43,8 @@ defmodule ChatDbEx.MessagingTest do
       assert {:ok, rows} = Messaging.chats_since(%{rowid: rowid})
       assert length(rows) == 1
 
-      last_row = Enum.at(rows, 0)
-
-      assert last_row == [
-               id: 1232,
-               last_message_at: nil,
-               last_message_text: nil,
-               messages_count: 0
-             ]
+      chat = Enum.at(rows, 0)
+      assert_valid_chat(chat)
     end
   end
 
@@ -78,27 +54,9 @@ defmodule ChatDbEx.MessagingTest do
       rowid = max_row - 1
       assert {:ok, rows} = Messaging.messages_since(%{rowid: rowid})
       assert length(rows) == 1
-      last_row = Enum.at(rows, 0)
+      message = Enum.at(rows, 0)
 
-      assert last_row == [
-               handle_id: 895,
-               handle_identifier: "242733",
-               handle_uncanonicalized_id: "242733",
-               id: 218_408,
-               guid: "1B76371E-66DE-C595-90D8-CCB92AF4789E",
-               text:
-                 "From: Chase Online\nReminder: We'll never call you to ask for this code\nEnter online at prompt, expires in 30 min.\nOne-Time Code:49390280",
-               subject: nil,
-               cache_roomnames: nil,
-               is_read: 1,
-               is_sent: 0,
-               is_from_me: 0,
-               has_attachments: 0,
-               utc_datetime: "2020-09-27 12:57:20",
-               utc_datetime_read: "2020-09-27 14:41:17",
-               utc_datetime_played: "2000-12-31 19:00:00",
-               utc_datetime_delivered: "2000-12-31 19:00:00"
-             ]
+      assert_valid_message(message)
     end
   end
 
@@ -109,16 +67,60 @@ defmodule ChatDbEx.MessagingTest do
       rowid = max_row - 1
       assert {:ok, rows} = Messaging.attachments_since(%{rowid: rowid})
       assert length(rows) == 1
-      last_row = Enum.at(rows, 0)
-
-      assert last_row == [
-               attachment_id: 9628,
-               message_id: 218_400,
-               filename:
-                 "~/Library/Messages/Attachments/22/02/C319B468-B190-4A0A-9AAA-B4865D54566A/188DB60C-318E-4672-83E4-DBBD76899573.pluginPayloadAttachment",
-               mime_type: nil,
-               total_bytes: 4286
-             ]
+      attachment = Enum.at(rows, 0)
+      assert_valid_attachment(attachment)
     end
+  end
+
+  defp is_boolean_int(val) do
+    val in [0, 1]
+  end
+
+  defp is_utc_datetime(val) do
+    is_binary(val)
+  end
+
+  defp is_guid(val) do
+    is_binary(val)
+  end
+
+  defp assert_valid_chat(chat) do
+    assert is_list(chat)
+    assert is_integer(chat[:id])
+    assert is_utc_datetime(chat[:last_message_at]) or is_nil(chat[:last_message_at])
+    assert is_binary(chat[:last_message_text]) or is_nil(chat[:last_message_text])
+    assert is_integer(chat[:messages_count])
+  end
+
+  defp assert_valid_message(message) do
+    assert is_list(message)
+    assert is_integer(message[:handle_id])
+    assert is_binary(message[:handle_identifier])
+
+    assert is_binary(message[:handle_uncanonicalized_id]) or
+             is_nil(message[:handle_uncanonicalized_id])
+
+    assert is_integer(message[:id])
+    assert is_guid(message[:guid])
+    assert is_binary(message[:text])
+    assert is_binary(message[:subject]) or is_nil(message[:subject])
+    assert is_binary(message[:cache_roomnames]) or is_nil(message[:cache_roomnames])
+    assert is_boolean_int(message[:is_read])
+    assert is_boolean_int(message[:is_sent])
+    assert is_boolean_int(message[:is_from_me])
+    assert is_boolean_int(message[:has_attachments])
+    assert is_utc_datetime(message[:utc_datetime])
+    assert is_utc_datetime(message[:utc_datetime_read])
+    assert is_utc_datetime(message[:utc_datetime_played])
+    assert is_utc_datetime(message[:utc_datetime_delivered])
+  end
+
+  defp assert_valid_attachment(attachment) do
+    assert is_list(attachment)
+    assert is_integer(attachment[:attachment_id])
+    assert is_integer(attachment[:message_id])
+    assert is_binary(attachment[:filename])
+    assert is_binary(attachment[:mime_type]) or is_nil(attachment[:mime_type])
+    assert is_integer(attachment[:total_bytes])
   end
 end
