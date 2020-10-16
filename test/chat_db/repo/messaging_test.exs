@@ -9,9 +9,9 @@ defmodule ChatDB.Repo.MessagingTest do
   @max_message_id elem(Messaging.max_message_id(), 1)
   @max_attachment_id elem(Messaging.max_attachment_id(), 1)
 
-  @max_chat_id 1232
-  @max_message_id 218_408
-  @max_attachment_id 9628
+  # @max_chat_id 1232
+  # @max_message_id 218_408
+  # @max_attachment_id 9628
   @chat_id 1200
 
   describe ".max_chat_id/0" do

@@ -7,8 +7,9 @@ defmodule ChatDB.Config do
 
   # defstruct chat_db_path: Path.join(@priv_dir, 'db/Messages/chat.db'),
   # defstruct chat_db_path: '/home/sitch/sites/imessagex/db/Messages/chat.db',
-  defstruct chat_db_path: 'priv/db/Messages/chat.db',
-            # defstruct chat_db_path: '/Users/sitch/Library/Messages/chat.db',
+  # defstruct chat_db_path: 'priv/db/Messages/chat.db',
+  defstruct chat_db_path: '/Users/michaelsitchenko/Library/Messages/chat.db',
+            # defstruct chat_db_path: '~/Library/Messages/chat.db',
             exported_vcards_filename: "priv/contacts.vcf",
             exported_jcards_filename: "priv/contacts-ical-jcards.json",
             contacts_json: "",
