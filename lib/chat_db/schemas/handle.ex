@@ -50,7 +50,8 @@ defmodule ChatDB.Schemas.Handle do
   end
 
   def fullname(%__MODULE__{} = struct) do
-    contacts = Contacts.list_contact_cards()
+    # contacts = Contacts.list_contact_cards()
+    nil
   end
 
   def image_url(%__MODULE__{} = struct) do

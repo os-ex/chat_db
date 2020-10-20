@@ -32,8 +32,16 @@ defmodule ChatDB.Ecto.UnixDatetime do
 
   def cast(binary) when is_binary(binary) do
     case DateTime.from_iso8601(binary) do
-      {:ok, datetime, integer} ->
+      {:ok, datetime, 0} ->
         cast(datetime)
+
+      {:ok, datetime, utc_offset} when is_integer(utc_offset) ->
+        raise """
+        Error
+        #{inspect(datetime)}
+
+        Offset: #{utc_offset}
+        """
 
       _ ->
         case Integer.parse(binary) do
@@ -43,7 +51,9 @@ defmodule ChatDB.Ecto.UnixDatetime do
     end
   end
 
-  def cast(_), do: :error
+  def cast(_) do
+    :error
+  end
 
   def dump(value) do
     Ecto.Type.dump(@datatype, value)
