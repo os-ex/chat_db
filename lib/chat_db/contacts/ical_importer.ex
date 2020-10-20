@@ -3,12 +3,13 @@ defmodule ChatDB.Contacts.ICalImporter do
   The Contacts Photo Cache context.
   """
 
-  alias ChatDB.Config
-  alias ChatDB.Contacts.ContactCache
-  alias ChatDB.Contacts.PhotoCache
   alias ChatDB.Schemas.Contact
 
   @mimes ["JPEG"]
+  alias ChatDB.Config
+
+  # alias ChatDB.Contacts.ContactCache
+  # alias ChatDB.Contacts.PhotoCache
 
   @doc """
   Imports contacts from iCal.
@@ -18,12 +19,13 @@ defmodule ChatDB.Contacts.ICalImporter do
 
   def import_contacts(
         %Config{
-          exported_vcards_filename: exported_vcards_filename,
-          exported_jcards_filename: exported_jcards_filename
+          import_vcards_path: import_vcards_path,
+          export_jcards_path: export_jcards_path,
+          export_contacts_json_path: export_contacts_json_path
         } = config
       ) do
-    with :ok <- transform(exported_vcards_filename, exported_jcards_filename),
-         {:ok, jcards} <- read_json(exported_jcards_filename),
+    with :ok <- transform(import_vcards_path, export_jcards_path),
+         {:ok, jcards} <- read_json(export_jcards_path),
          :ok <- persist(config, jcards) do
       :ok
     end
@@ -43,8 +45,8 @@ defmodule ChatDB.Contacts.ICalImporter do
 
   def persist(
         %Config{
-          contact_cache_dir: contact_cache_dir,
-          photo_cache_dir: photo_cache_dir
+          # contact_cache_dir: contact_cache_dir,
+          # photo_cache_dir: photo_cache_dir
         },
         jcard
       )

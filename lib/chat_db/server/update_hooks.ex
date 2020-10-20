@@ -12,13 +12,14 @@ defmodule ChatDB.Server.UpdateHooks do
 
   @type state() :: %{config: Config.t()}
 
-  @actions [:insert, :update, :delete]
-
   @type action() :: :insert | :update | :delete
   @type table() :: iolist()
   @type rowid() :: any()
 
   @type update() :: {action(), table(), rowid()}
+
+  @db ChatDB.IMessageChatDB
+  @actions [:insert, :update, :delete]
 
   @spec cast_state(Keyword.t()) :: state()
   def cast_state(opts) when is_list(opts) do
@@ -49,18 +50,18 @@ defmodule ChatDB.Server.UpdateHooks do
 
   # @impl true
   # def handle_call(:schedule_hooks, _from, state) do
-  #   Process.send_after(self(), :schedule_hooks, state.config.register_hook_delay_ms)
+  #   Process.send_after(self(), :schedule_hooks, state.config.update_hook_wait_ms)
   # end
 
   @spec schedule_hooks(state()) :: state()
   defp schedule_hooks(%{config: %Config{} = config} = state) do
-    Process.send_after(self(), :schedule_hooks, config.register_hook_delay_ms)
+    Process.send_after(self(), :schedule_hooks, config.update_hook_wait_ms)
     state
   end
 
   @spec register_hooks(state()) :: state()
-  defp register_hooks(%{config: %Config{} = config} = state) do
-    Server.set_update_hook(config.chat_db_module, self())
+  defp register_hooks(state) do
+    Server.set_update_hook(@db, self())
     state
   end
 
@@ -68,8 +69,8 @@ defmodule ChatDB.Server.UpdateHooks do
   defp dispatch_update(%{config: %Config{} = config} = state, update) do
     # Listener.handle(update)
 
-    case config.update_handler_mfa do
-      {module, fun} -> apply(module, fun, [update])
+    case config.update_hook_mfa do
+      {module, fun} when is_atom(module) and is_atom(fun) -> apply(module, fun, [update])
       :noop -> :noop
     end
 
