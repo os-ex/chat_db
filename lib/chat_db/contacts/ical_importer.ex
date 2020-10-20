@@ -8,6 +8,8 @@ defmodule ChatDB.Contacts.ICalImporter do
   alias ChatDB.Contacts.PhotoCache
   alias ChatDB.Schemas.Contact
 
+  @mimes ["JPEG"]
+
   @doc """
   Imports contacts from iCal.
   """
@@ -53,6 +55,37 @@ defmodule ChatDB.Contacts.ICalImporter do
     # end
 
     :ok
+  end
+
+  def separate_photos(%{photos: photos} = contact) do
+    contact_without_photos = Map.put(contact, :photos, [])
+    {contact_without_photos, photos}
+  end
+
+  def write_photo(path, %{
+        params: %{encoding: "BASE64", type: type},
+        type: "binary",
+        value: value
+      })
+      when is_binary(path) and type in @mimes and is_binary(value) do
+    with {:ok, binary} <- Base.decode64(value),
+         :ok <- File.write(path, binary) do
+      :ok
+    end
+  end
+
+  def contact_identifier(%{identifier_number: identifier_number})
+      when is_binary(identifier_number) do
+    {:ok, identifier_number}
+  end
+
+  def read_photo_base64(path) when is_binary(path) do
+    with {:ok, binary} <- File.read(path) do
+      mime = MIME.type(binary)
+      base64 = Base.encode64(binary)
+      data = "data:image/#{mime},#{base64}"
+      {:ok, data}
+    end
   end
 
   def transform(filename, output) when is_binary(filename) and is_binary(output) do
