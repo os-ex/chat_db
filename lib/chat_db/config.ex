@@ -13,8 +13,6 @@ defmodule ChatDB.Config do
   # defstruct chat_db_path: 'priv/db/Messages/chat.db',
   # defstruct chat_db_path: '/Users/michaelsitchenko/Library/Messages/chat.db',
   #           # defstruct chat_db_path: '~/Library/Messages/chat.db',
-  #           exported_vcards_filename: "priv/contacts.vcf",
-  #           exported_jcards_filename: "priv/contacts-ical-jcards.json",
   #           contacts_json: "",
   #           contact_cache_dir: "",
   #           chat_db_module: ChatDB.IMessageChatDB,

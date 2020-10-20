@@ -36,7 +36,7 @@ defmodule ChatDB.Contacts.ICalImporterTest do
     end
 
     # test "with valid jcards" do
-    #   assert {:ok, jcards} = ICalImporter.read_json(@config.exported_jcards_filename)
+    #   assert {:ok, jcards} = ICalImporter.read_json(@config.export_jcards_path)
     #   assert ICalImporter.cast_contacts(jcards) == []
     # end
   end
@@ -64,8 +64,8 @@ defmodule ChatDB.Contacts.ICalImporterTest do
 
   describe ".transform/1" do
     test "with valid paths" do
-      import_path = @config.exported_vcards_filename
-      export_path = @config.exported_jcards_filename
+      import_path = @config.import_vcards_path
+      export_path = @config.export_jcards_path
 
       assert File.exists?(import_path)
       # File.rm_rf!(export_path)
@@ -77,12 +77,12 @@ defmodule ChatDB.Contacts.ICalImporterTest do
 
   describe ".read_json/1" do
     test "with valid path and json" do
-      path = @config.exported_jcards_filename
+      path = @config.export_jcards_path
       assert {:ok, _json} = ICalImporter.read_json(path)
     end
 
     test "with valid path but not valid json" do
-      path = @config.exported_vcards_filename
+      path = @config.import_vcards_path
       assert {:error, %Jason.DecodeError{}} = ICalImporter.read_json(path)
     end
 
