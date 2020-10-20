@@ -32,11 +32,11 @@ defmodule ChatDB.Ecto.UnixDatetime do
 
   def cast(binary) when is_binary(binary) do
     case DateTime.from_iso8601(binary) do
-      {:ok, datetime} ->
+      {:ok, datetime, integer} ->
         cast(datetime)
 
       _ ->
-        case String.to_integer(binary) do
+        case Integer.parse(binary) do
           {integer, ""} -> cast(integer)
           _ -> :error
         end
