@@ -13,7 +13,7 @@ defmodule ChatDB.Schemas.Attachment do
   """
   @type t() :: %__MODULE__{
           __meta__: Ecto.Schema.Metadata.t(),
-          # id: primary_key :: pos_integer() | nil,
+          id: primary_key :: pos_integer() | nil,
           guid: String.t() | nil,
           created_date: DateTime.t() | nil,
           start_date: DateTime.t() | nil,
@@ -36,7 +36,6 @@ defmodule ChatDB.Schemas.Attachment do
   # @derive {Phoenix.Param, key: :rowid}
   prop_schema "attachment" do
     prop_field(:id, :integer, source: :rowid, required: true)
-    # prop_field(:handle_uuid, :string, source: :id, required: true)
     prop_field(:created_date, :integer, required: true)
     prop_field(:filename, :string, required: true)
     prop_field(:guid, :string, required: true)

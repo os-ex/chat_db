@@ -19,7 +19,7 @@ defmodule ChatDB.Schemas.Chat do
   """
   @type t() :: %__MODULE__{
           __meta__: Ecto.Schema.Metadata.t(),
-          # id: primary_key :: pos_integer() | nil,
+          id: primary_key :: pos_integer() | nil,
           guid: String.t() | nil,
           style: integer() | nil,
           state: integer() | nil,
@@ -35,8 +35,6 @@ defmodule ChatDB.Schemas.Chat do
           group_id: String.t() | nil,
           is_filtered: integer() | nil,
           successful_query: integer() | nil,
-          # inserted_at: DateTime.t() | nil,
-          # updated_at: DateTime.t() | nil,
           handles: [Handle.t()] | Ecto.Association.NotLoaded.t(),
           messages: [Message.t()] | Ecto.Association.NotLoaded.t()
         }
@@ -46,14 +44,12 @@ defmodule ChatDB.Schemas.Chat do
   # @derive {Phoenix.Param, key: :rowid}
   prop_schema "chat" do
     prop_field(:id, :integer, source: :rowid, required: true)
-    # prop_field(:id, :string, source: :guid, required: true)
     prop_field(:guid, :string, required: true)
     prop_field(:account_id, :string, required: true)
     prop_field(:account_login, :string, required: true)
     prop_field(:chat_identifier, :string, required: true)
     prop_field(:display_name, :string, required: true)
     prop_field(:group_id, :string, required: true)
-    # prop_field(:guid, :string, required: true)
     prop_field(:is_archived, BooleanInt, required: true)
     prop_field(:is_filtered, BooleanInt, required: true)
     prop_field(:last_addressed_handle, :string, required: true)

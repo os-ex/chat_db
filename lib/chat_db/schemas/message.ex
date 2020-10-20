@@ -70,8 +70,6 @@ defmodule ChatDB.Schemas.Message do
           expire_state: integer() | nil,
           message_action_type: integer() | nil,
           message_source: integer() | nil,
-          # inserted_at: DateTime.t() | nil,
-          # updated_at: DateTime.t() | nil,
           handle: Handle.t() | Ecto.Association.NotLoaded.t() | nil,
           chats: [Chat.t()] | Ecto.Association.NotLoaded.t(),
           attachments: [Attachment.t()] | Ecto.Association.NotLoaded.t()
@@ -139,8 +137,6 @@ defmodule ChatDB.Schemas.Message do
 
     prop_many_to_many(:chats, Chat, join_through: "chat_message_join")
     prop_many_to_many(:attachments, Attachment, join_through: "message_attachment_join")
-
-    # timestamps(type: :utc_datetime_usec)
   end
 
   @doc """
