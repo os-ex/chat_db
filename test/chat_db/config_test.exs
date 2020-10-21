@@ -8,7 +8,7 @@ defmodule ChatDB.ConfigTest do
   describe ".read/0" do
     test "it returns valid defaults" do
       assert Config.read() == %Config{
-               chat_db_path: "priv/db/Messages/chat.db",
+               chat_db_path: Path.expand("priv/db/Messages/chat.db"),
                #  chat_db_path: "~/Library/Messages/chat.db",
                update_hook_wait_ms: 1000,
                update_hook_mfa: :noop,

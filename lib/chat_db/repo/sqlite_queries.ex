@@ -3,6 +3,8 @@ defmodule ChatDB.Repo.SQLiteQueries do
   iMessage chatdb queries.
   """
 
+  import ChatDB.Repo.Fragments
+
   # defp get_current_max_rowid() do
   #   # Check to see if we have one stored.
   #   case DB.get!(:state, "imsg_max_rowid") do
@@ -17,54 +19,25 @@ defmodule ChatDB.Repo.SQLiteQueries do
   #   end
   # end
 
-  def unix_datetime(name, as: as) do
-    """
-    datetime(
-      #{name} / 1000000000 + strftime("%s", "2001-01-01"),
-      "unixepoch",
-      "localtime"
-    ) AS #{as}
-    """
-  end
-
-  def boolean_int(name, as: as) do
-    "#{name} AS #{as}"
-  end
-
   def sql(query, opts \\ %{})
 
   def sql(:max_chat_id, _) do
-    """
-    SELECT
-      MAX(chat.ROWID) AS max_chat_id
-    FROM
-      chat
-    """
+    select_max("chat.ROWID", as: :max_chat_id)
   end
 
   def sql(:max_message_id, _) do
-    """
-    SELECT
-      MAX(message.ROWID) AS max_message_id
-    FROM
-      message
-    """
+    select_max("message.ROWID", as: :max_message_id)
   end
 
   def sql(:max_attachment_id, _) do
-    """
-    SELECT
-      MAX(attachment.ROWID) AS max_attachment_id
-    FROM
-      attachment
-    """
+    select_max("attachment.ROWID", as: :max_attachment_id)
   end
 
   def sql(:last_message_at, %{rowid: rowid}) do
-    # {unix_datetime("message.date", as: "utc_date")}
+    #
     """
     SELECT
-      datetime(message.date/1000000000 + strftime("%s", "2001-01-01"), "unixepoch", "localtime") AS utc_datetime
+      #{unix_datetime("message.date")} AS utc_datetime
     FROM
       message
       JOIN
@@ -98,22 +71,7 @@ defmodule ChatDB.Repo.SQLiteQueries do
   def sql(:last_message, %{rowid: chat_id}) do
     """
     SELECT
-      handle.ROWID AS handle_id,
-      handle.id AS handle_identifier,
-      handle.uncanonicalized_id AS handle_uncanonicalized_id,
-      message.ROWID AS id,
-      message.guid AS guid,
-      message.text AS text,
-      message.subject AS subject,
-      message.cache_roomnames AS cache_roomnames,
-      cast(message.is_read AS boolean) AS is_read,
-      message.is_sent AS is_sent,
-      message.is_from_me AS is_from_me,
-      message.cache_has_attachments AS has_attachments,
-      datetime(message.date/1000000000 + strftime("%s", "2001-01-01"), "unixepoch", "localtime") AS utc_datetime,
-      datetime(message.date_read/1000000000 + strftime("%s", "2001-01-01"), "unixepoch", "localtime") AS utc_datetime_read,
-      datetime(message.date_played/1000000000 + strftime("%s", "2001-01-01"), "unixepoch", "localtime") AS utc_datetime_played,
-      datetime(message.date_delivered/1000000000 + strftime("%s", "2001-01-01"), "unixepoch", "localtime") AS utc_datetime_delivered
+      #{sql(:message_fields_with_assocs)}
     FROM
       message
       JOIN
@@ -130,22 +88,7 @@ defmodule ChatDB.Repo.SQLiteQueries do
   def sql(:last_message, _opts) do
     """
     SELECT
-      handle.ROWID AS handle_id,
-      handle.id AS handle_identifier,
-      handle.uncanonicalized_id AS handle_uncanonicalized_id,
-      message.ROWID AS id,
-      message.guid AS guid,
-      message.text AS text,
-      message.subject AS subject,
-      message.cache_roomnames AS cache_roomnames,
-      cast(message.is_read AS boolean) AS is_read,
-      message.is_sent AS is_sent,
-      message.is_from_me AS is_from_me,
-      message.cache_has_attachments AS has_attachments,
-      datetime(message.date/1000000000 + strftime("%s", "2001-01-01"), "unixepoch", "localtime") AS utc_datetime,
-      datetime(message.date_read/1000000000 + strftime("%s", "2001-01-01"), "unixepoch", "localtime") AS utc_datetime_read,
-      datetime(message.date_played/1000000000 + strftime("%s", "2001-01-01"), "unixepoch", "localtime") AS utc_datetime_played,
-      datetime(message.date_delivered/1000000000 + strftime("%s", "2001-01-01"), "unixepoch", "localtime") AS utc_datetime_delivered
+      #{sql(:message_fields_with_assocs)}
     FROM
       message
       INNER JOIN
@@ -172,13 +115,12 @@ defmodule ChatDB.Repo.SQLiteQueries do
   end
 
   def sql(:chats_since, %{rowid: rowid}) do
-    # {unix_datetime("message.date", as: "utc_date")}
     """
     SELECT
       chat.ROWID AS id,
       (
         SELECT
-          datetime(message.date/1000000000 + strftime("%s", "2001-01-01"), "unixepoch", "localtime")
+          #{unix_datetime("message.date")}
         FROM
           message
           JOIN
@@ -228,22 +170,7 @@ defmodule ChatDB.Repo.SQLiteQueries do
   def sql(:messages_since, %{rowid: rowid}) do
     """
     SELECT
-      handle.ROWID AS handle_id,
-      handle.id AS handle_identifier,
-      handle.uncanonicalized_id AS handle_uncanonicalized_id,
-      message.ROWID AS id,
-      message.guid AS guid,
-      message.text AS text,
-      message.subject AS subject,
-      message.cache_roomnames AS cache_roomnames,
-      cast(message.is_read AS boolean) AS is_read,
-      message.is_sent AS is_sent,
-      message.is_from_me AS is_from_me,
-      message.cache_has_attachments AS has_attachments,
-      datetime(message.date/1000000000 + strftime("%s", "2001-01-01"), "unixepoch", "localtime") AS utc_datetime,
-      datetime(message.date_read/1000000000 + strftime("%s", "2001-01-01"), "unixepoch", "localtime") AS utc_datetime_read,
-      datetime(message.date_played/1000000000 + strftime("%s", "2001-01-01"), "unixepoch", "localtime") AS utc_datetime_played,
-      datetime(message.date_delivered/1000000000 + strftime("%s", "2001-01-01"), "unixepoch", "localtime") AS utc_datetime_delivered
+      #{sql(:message_fields_with_assocs)}
     FROM
       message
       INNER JOIN
@@ -300,10 +227,7 @@ defmodule ChatDB.Repo.SQLiteQueries do
         is_from_me,
         handle.id AS handle_identifier,
         cache_has_attachments,
-        datetime(
-          message.date / 1000000000 + strftime("%s", "2001-01-01"),
-          "unixepoch", "localtime"
-        ) AS sent_at
+        #{unix_datetime("message.date")}  AS sent_at
     }
     # .includes(:attachments, chats: :handles)
     # .joins("LEFT JOIN handle on handle.ROWID = message.handle_id")
@@ -314,10 +238,8 @@ defmodule ChatDB.Repo.SQLiteQueries do
       SELECT
         chat.ROWID,
         (
-          SELECT datetime(
-            message.date / 1000000000 + strftime("%s", "2001-01-01"),
-            "unixepoch", "localtime"
-          ) AS date_utc
+          SELECT
+            #{unix_datetime("message.date")}
           FROM message
           JOIN chat_message_join ON chat_message_join.message_id = message.ROWID
           WHERE chat_message_join.chat_id = chat.ROWID
@@ -325,7 +247,8 @@ defmodule ChatDB.Repo.SQLiteQueries do
           LIMIT 1
         ) AS last_msg_at,
         (
-          SELECT text
+          SELECT
+            text
           FROM message
           JOIN chat_message_join ON chat_message_join.message_id = message.ROWID
           WHERE chat_message_join.chat_id = chat.ROWID
@@ -351,4 +274,25 @@ defmodule ChatDB.Repo.SQLiteQueries do
   #   |> query()
   #   |> with_connection()
   # end
+
+  def sql(:message_fields_with_assocs, _opts) do
+    """
+    handle.ROWID AS handle_id,
+    handle.id AS handle_identifier,
+    handle.uncanonicalized_id AS handle_uncanonicalized_id,
+    message.ROWID AS id,
+    message.guid AS guid,
+    message.text AS text,
+    message.subject AS subject,
+    message.cache_roomnames AS cache_roomnames,
+    cast(message.is_read AS boolean) AS is_read,
+    message.is_sent AS is_sent,
+    message.is_from_me AS is_from_me,
+    message.cache_has_attachments AS has_attachments,
+    #{unix_datetime("message.date")} AS utc_datetime,
+    #{unix_datetime("message.date_read")} AS utc_datetime_read,
+    #{unix_datetime("message.date_played")} AS utc_datetime_played,
+    #{unix_datetime("message.date_delivered")} AS utc_datetime_delivered
+    """
+  end
 end

@@ -1,0 +1,11 @@
+<% sqlite_path = @assigns[:chat_db_path] || Path.expand("~/Library/Messages/chat.db") %>
+<% postgres_db = @assigns[:postgres_db] || "chat_db_dev" %>
+
+LOAD database
+    FROM sqlite://<%= sqlite_path %>
+    INTO postgresql:///<%= @postgres_db %>
+
+    WITH include drop, create tables, create indexes, reset sequences
+
+    SET work_mem to '16MB', maintenance_work_mem to '512 MB';
+
