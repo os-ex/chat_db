@@ -213,6 +213,27 @@ defmodule ChatDB.Repo.SQLiteQueries do
     """
   end
 
+  def sql(:message_fields_with_assocs, _opts) do
+    """
+    handle.ROWID AS handle_id,
+    handle.id AS handle_identifier,
+    handle.uncanonicalized_id AS handle_uncanonicalized_id,
+    message.ROWID AS id,
+    message.guid AS guid,
+    message.text AS text,
+    message.subject AS subject,
+    message.cache_roomnames AS cache_roomnames,
+    cast(message.is_read AS boolean) AS is_read,
+    message.is_sent AS is_sent,
+    message.is_from_me AS is_from_me,
+    message.cache_has_attachments AS has_attachments,
+    #{unix_datetime("message.date")} AS utc_datetime,
+    #{unix_datetime("message.date_read")} AS utc_datetime_read,
+    #{unix_datetime("message.date_played")} AS utc_datetime_played,
+    #{unix_datetime("message.date_delivered")} AS utc_datetime_delivered
+    """
+  end
+
   def query(:list_messages) do
     ~s(
       SELECT * from message ORDER BY ROWID DESC LIMIT 1
@@ -274,25 +295,4 @@ defmodule ChatDB.Repo.SQLiteQueries do
   #   |> query()
   #   |> with_connection()
   # end
-
-  def sql(:message_fields_with_assocs, _opts) do
-    """
-    handle.ROWID AS handle_id,
-    handle.id AS handle_identifier,
-    handle.uncanonicalized_id AS handle_uncanonicalized_id,
-    message.ROWID AS id,
-    message.guid AS guid,
-    message.text AS text,
-    message.subject AS subject,
-    message.cache_roomnames AS cache_roomnames,
-    cast(message.is_read AS boolean) AS is_read,
-    message.is_sent AS is_sent,
-    message.is_from_me AS is_from_me,
-    message.cache_has_attachments AS has_attachments,
-    #{unix_datetime("message.date")} AS utc_datetime,
-    #{unix_datetime("message.date_read")} AS utc_datetime_read,
-    #{unix_datetime("message.date_played")} AS utc_datetime_played,
-    #{unix_datetime("message.date_delivered")} AS utc_datetime_delivered
-    """
-  end
 end

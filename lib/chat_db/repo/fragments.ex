@@ -3,33 +3,18 @@ defmodule ChatDB.Repo.Fragments do
   iMessage chatdb fragments.
   """
 
-  defmacro unix_datetime(name) when is_binary(name) do
-    quote do
-      ~s{datetime(#{unquote(name)}/1000000000 + strftime("%s", "2001-01-01"), "unixepoch", "localtime")}
-    end
+  def unix_datetime(name) when is_binary(name) do
+    ~s{datetime(#{name}/1000000000 + strftime("%s", "2001-01-01"), "unixepoch", "localtime")}
   end
 
-  defmacro select_max(name, opts \\ []) when is_binary(name) do
+  def select_max(name, as: as) when is_binary(name) and is_atom(as) do
     [table, field] = String.split(name, ".")
-    maybe_as = field_alias(opts)
 
-    quote do
-      """
-      SELECT
-        MAX(#{unquote(table)}.#{unquote(field)})#{unquote(maybe_as)}
-      FROM
-        #{unquote(table)}
-      """
-    end
-  end
-
-  def field_alias(opts) when is_list(opts) do
-    case Keyword.get(opts, :as) do
-      "" -> ""
-      "" -> ""
-      as when is_atom(as) -> " AS #{as}"
-      as when is_binary(as) -> " AS #{as}"
-      _ -> ""
-    end
+    """
+    SELECT
+      MAX(#{table}.#{field}) AS #{as}
+    FROM
+      #{table}
+    """
   end
 end

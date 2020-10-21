@@ -137,16 +137,17 @@ defmodule ChatDB.Repo.SQLiteQueriesTest do
     formatted = SQLFormatter.format(sql)
 
     quotes = "\"\"\""
+    assert formatted == expected
 
     assert formatted == expected,
       message: """
-      #{IO.ANSI.cyan()}Recived:#{IO.ANSI.reset()}
+      #{IO.ANSI.cyan()}Expected:#{IO.ANSI.reset()}
       #{IO.ANSI.red()}
       #{quotes}
       #{String.trim(expected)}
       #{quotes}
 
-      #{IO.ANSI.light_cyan()}Expected:#{IO.ANSI.reset()}
+      #{IO.ANSI.light_cyan()}Received:#{IO.ANSI.reset()}
       #{IO.ANSI.light_red()}
       #{quotes}
       #{String.trim(formatted)}
