@@ -91,9 +91,12 @@ defmodule ChatDB.Contacts.ICalImporter do
   end
 
   def transform(filename, output) when is_binary(filename) and is_binary(output) do
-    with :ok <- file_exists_ok(filename),
-         {_stdout, 0} <- cmd_vcards_to_jcards(filename, output) do
-      :ok
+    with :ok <- file_exists_ok(filename) do
+      case cmd_vcards_to_jcards(filename, output) do
+        {_stdout, 0} -> :ok
+        {_, 126} -> {:error, :cmd_not_found}
+        _ -> {:error, :unknown}
+      end
     end
   end
 
