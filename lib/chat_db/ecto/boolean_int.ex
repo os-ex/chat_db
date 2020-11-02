@@ -1,4 +1,4 @@
-defmodule ChatDB.Ecto.BooleanInt do
+defmodule ChatDb.Ecto.BooleanInt do
   @moduledoc """
   Representation for a boolean stored as an integer.
   """

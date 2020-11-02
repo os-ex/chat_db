@@ -1,4 +1,4 @@
-defmodule ChatDB.Ecto.UnixDatetime do
+defmodule ChatDb.Ecto.UnixDatetime do
   @moduledoc """
   Representation for a datetime stored as a unix epoch integer
   """

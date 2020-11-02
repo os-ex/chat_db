@@ -1,15 +1,15 @@
-defmodule ChatDB.Contacts.ICalImporter do
+defmodule ChatDb.Contacts.ICalImporter do
   @moduledoc """
   The Contacts Photo Cache context.
   """
 
-  alias ChatDB.Schemas.Contact
+  alias ChatDb.Schemas.Contact
 
   @mimes ["JPEG"]
-  alias ChatDB.Config
+  alias ChatDb.Config
 
-  # alias ChatDB.Contacts.ContactCache
-  # alias ChatDB.Contacts.PhotoCache
+  # alias ChatDb.Contacts.ContactCache
+  # alias ChatDb.Contacts.PhotoCache
 
   @doc """
   Imports contacts from iCal.

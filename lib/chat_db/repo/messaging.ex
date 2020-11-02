@@ -1,9 +1,9 @@
-defmodule ChatDB.Repo.Messaging do
+defmodule ChatDb.Repo.Messaging do
   @moduledoc """
   Context for the SQLite repo calls.
   """
 
-  alias ChatDB.Repo.SQLiteQueries
+  alias ChatDb.Repo.SQLiteQueries
 
   def last_message do
     sql = SQLiteQueries.sql(:last_message)
@@ -79,12 +79,12 @@ defmodule ChatDB.Repo.Messaging do
   end
 
   def query(sql) do
-    Sqlitex.Server.query(ChatDB.IMessageChatDB, sql)
+    Sqlitex.Server.query(ChatDb.IMessageChatDb, sql)
   end
 
   def count(sql) do
     with {:ok, [[count: count]]} when is_integer(count) <-
-           Sqlitex.Server.query(ChatDB.IMessageChatDB, sql) do
+           Sqlitex.Server.query(ChatDb.IMessageChatDb, sql) do
       {:ok, count}
     end
   end

@@ -1,4 +1,4 @@
-defmodule ChatDB.Repo.Fragments do
+defmodule ChatDb.Repo.Fragments do
   @moduledoc """
   iMessage chatdb fragments.
   """

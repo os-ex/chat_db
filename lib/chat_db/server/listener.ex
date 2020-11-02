@@ -1,11 +1,11 @@
-defmodule ChatDB.Server.Listener do
+defmodule ChatDb.Server.Listener do
   @moduledoc """
   SQLite connector for the iMessage chatdb.
   """
 
   # alias Phoenix.PubSub
 
-  alias ChatDB
+  alias ChatDb
 
   require Logger
 
@@ -28,13 +28,13 @@ defmodule ChatDB.Server.Listener do
   """
   @spec handle({action(), table(), rowid()}) :: :ok | :ignore
   def handle({:insert, 'chat', rowid}) do
-    # chat = ChatDB.get_chat_by_rowid(rowid)
+    # chat = ChatDb.get_chat_by_rowid(rowid)
     chat = rowid
     broadcast({:new_chat, chat})
   end
 
   def handle({:insert, 'message', rowid}) do
-    # message = ChatDB.get_message_by_rowid(rowid)
+    # message = ChatDb.get_message_by_rowid(rowid)
     message = rowid
     broadcast({:new_message, message})
   end

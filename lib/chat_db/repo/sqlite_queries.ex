@@ -1,9 +1,9 @@
-defmodule ChatDB.Repo.SQLiteQueries do
+defmodule ChatDb.Repo.SQLiteQueries do
   @moduledoc """
   iMessage chatdb queries.
   """
 
-  import ChatDB.Repo.Fragments
+  import ChatDb.Repo.Fragments
 
   # defp get_current_max_rowid() do
   #   # Check to see if we have one stored.

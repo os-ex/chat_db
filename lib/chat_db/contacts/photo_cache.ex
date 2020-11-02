@@ -1,9 +1,9 @@
-defmodule ChatDB.Contacts.PhotoCache do
+defmodule ChatDb.Contacts.PhotoCache do
   @moduledoc """
   The Contacts Photo Cache context.
   """
 
-  alias ChatDB.Config
+  alias ChatDb.Config
 
   def get(
         %Config{

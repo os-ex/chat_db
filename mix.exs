@@ -1,4 +1,4 @@
-defmodule ChatDB.MixProject do
+defmodule ChatDb.MixProject do
   use Mix.Project
 
   def project do
@@ -22,7 +22,7 @@ defmodule ChatDB.MixProject do
   def application do
     [
       extra_applications: [:logger],
-      mod: {ChatDB.Application, []}
+      mod: {ChatDb.Application, []}
     ]
   end
 

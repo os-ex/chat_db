@@ -1,4 +1,4 @@
-defmodule ChatDB.Config do
+defmodule ChatDb.Config do
   @moduledoc """
   Application config.
   """
@@ -15,13 +15,13 @@ defmodule ChatDB.Config do
   #           # defstruct chat_db_path: '~/Library/Messages/chat.db',
   #           contacts_json: "",
   #           contact_cache_dir: "",
-  #           chat_db_module: ChatDB.IMessageChatDB,
+  #           chat_db_module: ChatDb.IMessageChatDb,
   #           photo_cache_dir: "",
   #           register_hook_delay_ms: 1000,
   #           chat_db_opts: [],
   #           update_handler_mfa: :noop
   defstruct [
-    # ChatDB
+    # ChatDb
     # chat_db_path: "~/Library/Messages/chat.db",
     chat_db_path: "priv/db/Messages/chat.db",
     update_hook_mfa: :noop,
@@ -64,7 +64,7 @@ defmodule ChatDB.Config do
 
   @spec read_env() :: %{required(:atom) => any()}
   defp read_env do
-    :chat_db_path_ex
+    :chat_db
     |> Application.get_all_env()
     # |> Enum.reject(fn {_k, v} -> v in [nil, ""] end)
     |> Enum.into(%{})
@@ -72,5 +72,9 @@ defmodule ChatDB.Config do
 
   def valid_chat_db?(%__MODULE__{chat_db_path: chat_db_path}) do
     File.exists?(chat_db_path)
+  end
+
+  def default_chat_db_path do
+    "~/Library/Messages/chat.db"
   end
 end

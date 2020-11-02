@@ -1,10 +1,10 @@
-defmodule ChatDB.Conversations.ChatThreadsTest do
+defmodule ChatDb.Conversations.ChatThreadsTest do
   @moduledoc false
 
   use ExUnit.Case, async: true
   import Support.Factory
 
-  alias ChatDB.Conversations.ChatThreads
+  alias ChatDb.Conversations.ChatThreads
 
   describe ".group_messages/1" do
     test "with valid chat" do

@@ -1,8 +1,8 @@
-defmodule ChatDBTest do
+defmodule ChatDbTest do
   use ExUnit.Case
-  doctest ChatDB
+  doctest ChatDb
 
   test "greets the world" do
-    assert ChatDB.hello() == :world
+    assert ChatDb.hello() == :world
   end
 end

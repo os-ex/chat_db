@@ -1,12 +1,12 @@
-defmodule ChatDB.Contacts.ICalImporterTest do
+defmodule ChatDb.Contacts.ICalImporterTest do
   @moduledoc false
 
   use ExUnit.Case, async: true
   import Support.Factory
 
-  alias ChatDB.Config
+  alias ChatDb.Config
 
-  alias ChatDB.Contacts.ICalImporter
+  alias ChatDb.Contacts.ICalImporter
 
   @config Config.read()
 

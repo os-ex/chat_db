@@ -1,15 +1,15 @@
-defmodule ChatDB.Schemas.Attachment do
+defmodule ChatDb.Schemas.Attachment do
   @moduledoc """
-  Schema for `ChatDB.Schemas.Attachment`.
+  Schema for `ChatDb.Schemas.Attachment`.
   """
 
   use PropSchema
   import Ecto.Changeset
 
-  alias ChatDB.Schemas.Message
+  alias ChatDb.Schemas.Message
 
   @typedoc """
-  Struct type for `ChatDB.Schemas.Attachment`.
+  Struct type for `ChatDb.Schemas.Attachment`.
   """
   @type t() :: %__MODULE__{
           __meta__: Ecto.Schema.Metadata.t(),

@@ -5,10 +5,10 @@ defmodule Support.Factory do
 
   alias Support.Randoms
 
-  alias ChatDB.Schemas.Attachment
-  alias ChatDB.Schemas.Chat
-  alias ChatDB.Schemas.Handle
-  alias ChatDB.Schemas.Message
+  alias ChatDb.Schemas.Attachment
+  alias ChatDb.Schemas.Chat
+  alias ChatDb.Schemas.Handle
+  alias ChatDb.Schemas.Message
 
   def chat_factory do
     build(:random_chat)

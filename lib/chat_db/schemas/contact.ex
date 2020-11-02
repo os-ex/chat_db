@@ -1,6 +1,6 @@
-defmodule ChatDB.Schemas.Contact do
+defmodule ChatDb.Schemas.Contact do
   @moduledoc """
-  Schema for `ChatDB.Schemas.Contact`.
+  Schema for `ChatDb.Schemas.Contact`.
   """
 
   # use PropSchema
@@ -25,7 +25,7 @@ defmodule ChatDB.Schemas.Contact do
   }
 
   # @typedoc """
-  # Struct type for `ChatDB.Schemas.Contact`.
+  # Struct type for `ChatDb.Schemas.Contact`.
   # """
   # @type t() :: %__MODULE__{
   #         # __meta__: Ecto.Schema.Metadata.t(),

@@ -1,4 +1,4 @@
-defmodule ChatDB.Server.UpdateHooks do
+defmodule ChatDb.Server.UpdateHooks do
   @moduledoc """
   GenServer for managing the sqlite `chat.db` connection.
   """
@@ -7,8 +7,8 @@ defmodule ChatDB.Server.UpdateHooks do
 
   alias Sqlitex.Server
 
-  alias ChatDB.Config
-  # alias ChatDB.Server.Listener
+  alias ChatDb.Config
+  # alias ChatDb.Server.Listener
 
   @type state() :: %{config: Config.t()}
 
@@ -18,7 +18,7 @@ defmodule ChatDB.Server.UpdateHooks do
 
   @type update() :: {action(), table(), rowid()}
 
-  @db ChatDB.IMessageChatDB
+  @db ChatDb.IMessageChatDb
   @actions [:insert, :update, :delete]
 
   @spec cast_state(Keyword.t()) :: state()

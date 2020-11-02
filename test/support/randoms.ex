@@ -109,7 +109,7 @@ defmodule Support.Randoms do
         Logger.warn("""
 
         ------------------------------------------------
-        `ChatDB.Randoms.random/2` was unable to generate a case for:
+        `ChatDb.Randoms.random/2` was unable to generate a case for:
 
           iex> Randoms.random(#{inspect(field)}, #{inspect(type)})
 

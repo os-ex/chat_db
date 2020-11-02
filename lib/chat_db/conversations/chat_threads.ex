@@ -1,11 +1,11 @@
-defmodule ChatDB.Conversations.ChatThreads do
+defmodule ChatDb.Conversations.ChatThreads do
   @moduledoc """
   The MessageThreads context.
   """
 
-  alias ChatDB.Schemas.Chat
-  alias ChatDB.Schemas.Handle
-  alias ChatDB.Schemas.Message
+  alias ChatDb.Schemas.Chat
+  alias ChatDb.Schemas.Handle
+  alias ChatDb.Schemas.Message
 
   alias DarkEcto.Types.CFAbsoluteTime
 

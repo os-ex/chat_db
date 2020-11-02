@@ -1,6 +1,6 @@
-defmodule ChatDB do
+defmodule ChatDb do
   @moduledoc """
-  Documentation for `ChatDB`.
+  Documentation for `ChatDb`.
   """
 
   @doc """
@@ -8,7 +8,7 @@ defmodule ChatDB do
 
   ## Examples
 
-      iex> ChatDB.hello()
+      iex> ChatDb.hello()
       :world
   """
   def hello do

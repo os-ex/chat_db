@@ -1,4 +1,4 @@
-# ChatDB
+# ChatDb
 
 OSx `chat.db` sqlite helpers.
 

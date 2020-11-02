@@ -1,9 +1,9 @@
-defmodule ChatDB.Repo.MessagingTest do
+defmodule ChatDb.Repo.MessagingTest do
   @moduledoc false
 
   use ExUnit.Case, async: true
 
-  alias ChatDB.Repo.Messaging
+  alias ChatDb.Repo.Messaging
 
   @max_chat_id elem(Messaging.max_chat_id(), 1)
   @max_message_id elem(Messaging.max_message_id(), 1)

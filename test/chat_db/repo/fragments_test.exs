@@ -1,10 +1,10 @@
-defmodule ChatDB.Repo.FragmentsTest do
+defmodule ChatDb.Repo.FragmentsTest do
   @moduledoc false
 
   use ExUnit.Case, async: true
 
-  alias ChatDB.Repo.Fragments
-  require ChatDB.Repo.Fragments
+  alias ChatDb.Repo.Fragments
+  require ChatDb.Repo.Fragments
 
   describe ".unix_datetime/1" do
     test "with 'message.date' it returns valid sql" do

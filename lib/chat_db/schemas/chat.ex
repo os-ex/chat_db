@@ -1,6 +1,6 @@
-defmodule ChatDB.Schemas.Chat do
+defmodule ChatDb.Schemas.Chat do
   @moduledoc """
-  Schema for `ChatDB.Schemas.Chat`.
+  Schema for `ChatDb.Schemas.Chat`.
   """
 
   use PropSchema
@@ -8,14 +8,14 @@ defmodule ChatDB.Schemas.Chat do
 
   alias DarkMatter.DateTimes
 
-  alias ChatDB.Ecto.BooleanInt
-  alias ChatDB.Ecto.UnixDatetime
+  alias ChatDb.Ecto.BooleanInt
+  alias ChatDb.Ecto.UnixDatetime
 
-  alias ChatDB.Schemas.Handle
-  alias ChatDB.Schemas.Message
+  alias ChatDb.Schemas.Handle
+  alias ChatDb.Schemas.Message
 
   @typedoc """
-  Struct type for `ChatDB.Schemas.Chat`.
+  Struct type for `ChatDb.Schemas.Chat`.
   """
   @type t() :: %__MODULE__{
           __meta__: Ecto.Schema.Metadata.t(),
